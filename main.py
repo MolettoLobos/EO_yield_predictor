@@ -1,7 +1,7 @@
 """
 GDD-based multiband linear models for yield prediction (generic, 1..∞ bands)
 -----------------------------------------------------------------------------
-Author: Italo (helper module by ChatGPT)
+Author: Italo
 
 This module lets you:
   1) Feed an EO data cube shaped as (T, B, Y, X) where T indexes GDD (or time),
