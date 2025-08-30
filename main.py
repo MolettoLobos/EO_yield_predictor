@@ -43,6 +43,24 @@ from sklearn.preprocessing import StandardScaler
 ArrayLike4D = Union[np.ndarray]
 ArrayLike2D = Union[np.ndarray]
 
+def load_scenes(file_list, bands_idx):
+    """
+    Lee múltiples escenas satelitales y retorna un cubo (T, B, Y, X).
+
+    file_list : lista de escenas; cada escena es lista de rutas a bandas
+    bands_idx : índices de bandas a usar
+    
+    Retorna: np.ndarray con forma (T, B, Y, X)
+    """
+    scenes = []
+    for scene_paths in file_list:
+        bands = []
+        for b in bands_idx:
+            with rasterio.open(scene_paths[b]) as src:
+                bands.append(src.read(1).astype(np.float32))
+        scenes.append(np.stack(bands, axis=0))  # (B, Y, X)
+    return np.stack(scenes, axis=0)  # (T, B, Y, X)
+
 
 @dataclass
 class ModelSpec:
